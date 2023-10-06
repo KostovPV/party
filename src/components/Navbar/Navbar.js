@@ -4,7 +4,7 @@ import { useAuthContext } from '../../hooks/useAuthContext'
 
 // styles & images
 import './Navbar.css'
-import Temple from '../../assets/temple.svg'
+import Temple from '../../assets/party12.png'
 import Avatar from '../Avatar/Avatar'
 
 export default function Navbar() {
@@ -19,7 +19,7 @@ export default function Navbar() {
     <nav className="navbar">
       <ul>
         <li className="logo">
-          <img src={Temple} alt="dojo logo" />
+          {/* <img src={Temple} alt="logo" /> */}
           <span>The Party center</span>
         </li>
         <li><Link to="/">Home</Link></li>
