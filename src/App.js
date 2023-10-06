@@ -1,25 +1,57 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { useAuthContext } from './hooks/useAuthContext';
+
+// components
+import Navbar from './components/Navbar/Navbar'
+import Home from './pages/Home/Home'
+import Login from './pages/Login/Login'
+import Signup from './pages/Signup/Signup'
+
+import './App.css'
+import { Footer } from './components/Footer/Footer';
+import Sidebar from './components/Sidebar/Sidebar';
+import Profile from './pages/Profile/Profile';
 
 function App() {
+  const { user, authIsReady } = useAuthContext();
+  // const navigate = useNavigate();
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {authIsReady && (
+        <BrowserRouter>
+
+          <Navbar />
+          <main id="main-content">
+            {/* {user && <Sidebar />} */}
+            <Routes>
+              <>
+                <Route path="/" element={<Home />} >
+
+                </Route>
+                <Route path="/profile" element={<Profile />} >
+
+                </Route>
+              </>
+
+
+              <Route path="/signup"
+                element={!user ? <Signup /> : <Navigate to="/" />}>
+                {/* {!user && <Signup />}
+           {user && <Navigate to="/"/>} */}
+              </Route>
+              <Route path="/login" element={!user ? <Login /> : <Navigate to="/" />}>
+                {/* {!user && <Login />}
+           {user && <Navigate to="/"/>} */}
+
+              </Route>
+            </Routes>
+          </main>
+
+          <Footer />
+        </BrowserRouter>
+      )}
     </div>
   );
 }
 
-export default App;
+export default App
