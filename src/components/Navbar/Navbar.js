@@ -11,7 +11,7 @@ export default function Navbar() {
   const { logout, isPending } = useLogout()
   const { user } = useAuthContext()
   if (user) {
-    console.log(user.photoURL);
+    // console.log(user.photoURL);
 
   }
 
@@ -37,6 +37,9 @@ export default function Navbar() {
           )}
         
         <li><Link to="/profile">  Update Profile</Link></li>
+        <li><Link to="/create">Create party</Link></li>
+        <li><Link to="/list">Party list</Link></li>
+       
         {!isPending && <button className="btn" onClick={logout}>Logout</button>}
         {isPending && <button className="btn" disabled>Logging out...</button>}
         </>

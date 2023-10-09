@@ -4,7 +4,7 @@
 
 // import { useCollection } from '../hooks/useCollection';
 // import { useAuthContext } from '../hooks/useAuthContext'; 
-
+import './Home.css'
 
 export default function Home() {
     // const { user} = useAuthContext();
@@ -19,8 +19,9 @@ export default function Home() {
         //     {books && <BookList books={books} />}
         //     <BookForm />
         // </div>
-        <div>
-            Home page1
+        <div className="welcome-message">
+           Welcome to The party center
+           We hope we are going to have a great time togather
         </div>
     );
 }

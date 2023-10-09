@@ -75,11 +75,11 @@ textarea {
   margin: 10px 0;
 }
 
-/* #main-content{ */
-  /* max-width: 1200px;
+#main-content{ 
+  max-width: 1200px;
   max-width: 1200px;
     background: url('https://img.freepik.com/free-photo/little-kid-playing_23-2148836321.jpg?w=1380&t=st=1696073204~exp=1696073804~hmac=fc401cffa91ecbf5db69868d59b74e529a844f0bb70fce57332765a3c9bada54');
     background-repeat: no-repeat;
     background-size: cover;
-    height: 100vh; */
-/* }  */
+    height: 100vh; 
+ } 

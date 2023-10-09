@@ -11,6 +11,9 @@ import './App.css'
 import { Footer } from './components/Footer/Footer';
 import Sidebar from './components/Sidebar/Sidebar';
 import Profile from './pages/Profile/Profile';
+import Create from './pages/Create/Create';
+import List from './pages/List/List';
+import Details from './pages/Details/Details';
 
 function App() {
   const { user, authIsReady } = useAuthContext();
@@ -29,7 +32,16 @@ function App() {
 
                 </Route>
                 <Route path="/profile" element={<Profile />} >
-
+                
+                </Route>
+                <Route path="/create" element={<Create />} >
+                
+                </Route>
+                <Route path="/list" element={<List />} >
+                
+                </Route>
+                <Route path="/list/:id" element={<Details />} >
+                
                 </Route>
               </>
 
