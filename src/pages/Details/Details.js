@@ -1,19 +1,24 @@
-import { useParams } from "react-router-dom"
-import { useDocument } from "../../hooks/useDocument";
-
+import { Link, useParams } from "react-router-dom"
+import { useDocument } from "../../hooks/useDocument"
+import { useAuthContext} from "../../hooks/useAuthContext";
 // components
 
 
 // styles
 import './Details.css'
+import Card from "../../components/Card/Card";
 
 export default function Details() {
   const { id } = useParams()
   console.log(id);
+  const {user} = useAuthContext();
+  const userId = user?.uid;
   
   const { document, error } = useDocument('parties', id)
-//   console.log(document);
-
+  console.log(document);
+  console.log(document?.author);
+const canEdit = (document?.author===userId) 
+console.log('canEdit' ,canEdit);
   if (error) {
     return <div className="error">{error}</div>
   }
@@ -22,13 +27,18 @@ export default function Details() {
   }
 
   return (
-    <div className="party-details">
-     <div   key={document.id} className="card">
+    <Card className="party-item">
+     <div   key={document.id} className="party-item-description">
      
      <h3>{document.partyName}</h3>
      <p>{document.details} to make.</p>
+     <p>{document.createdBy} Created by</p>
+     <p>{document.category.label} </p>
      <div>{document.dueDate}</div>
+     {canEdit && (
+      <div><Link to={`/list/${id}/edit`} >Edit</Link></div>
+     )}
     </div>
-    </div>
+    </Card>
   )
 }

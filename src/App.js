@@ -14,6 +14,7 @@ import Profile from './pages/Profile/Profile';
 import Create from './pages/Create/Create';
 import List from './pages/List/List';
 import Details from './pages/Details/Details';
+import Edit from './pages/Edit/Edit';
 
 function App() {
   const { user, authIsReady } = useAuthContext();
@@ -41,6 +42,9 @@ function App() {
                 
                 </Route>
                 <Route path="/list/:id" element={<Details />} >
+                
+                </Route>
+                <Route path="/list/:id/edit" element={<Edit />} >
                 
                 </Route>
               </>

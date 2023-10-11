@@ -20,12 +20,16 @@ export default function Create() {
   const [details, setDetails] = useState('')
   const [dueDate, setDueDate] = useState('')
   const [category, setCategory] = useState('')
+
   const [formError, setFormError] = useState(null)
+  console.log('user' ,user);
   const newparty = {
     partyName,
     details,
     dueDate,
-    category
+    category,
+    author: user.uid, 
+    createdBy: user.email
   }
 
   const handleSubmit = async (e) => {
@@ -39,6 +43,7 @@ export default function Create() {
     setDetails('')
     setDueDate('')
     setCategory('')
+    
   }
 
   return (
