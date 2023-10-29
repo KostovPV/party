@@ -7,7 +7,7 @@ import Select from 'react-select'
 import { useParams } from 'react-router-dom';
 import { useDocument } from '../../hooks/useDocument';
 
-
+import './Edit.css'
 
 const categories = [
   { value: 'birthday', label: 'Birthday-party' },
@@ -34,10 +34,10 @@ export default function Edit() {
   console.log(document);
 
 
-  setPartyName(document.partyName)
-  setDetails(document.details)
-  setDueDate(document.dueDate)
-  setCategory(document.category)
+  // setPartyName(document.partyName)
+  // setDetails(document.details)
+  // setDueDate(document.dueDate)
+  // setCategory(document.category)
 
 
   console.log('user', user);
@@ -61,7 +61,7 @@ export default function Edit() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className='edit-form' onSubmit={handleSubmit}>
       <label>
         <span>Add a new book title:</span>
         <input
