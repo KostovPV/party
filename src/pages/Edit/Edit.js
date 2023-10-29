@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { db } from '../../firebase/config';
 import { collection, doc, setDoc, updateDoc, } from 'firebase/firestore';
@@ -18,22 +18,26 @@ const categories = [
 
 
 export default function Edit() {
-  const { user } = useAuthContext();
+  
   const [partyName, setPartyName] = useState('');
   const [details, setDetails] = useState('')
   const [dueDate, setDueDate] = useState('')
   const [category, setCategory] = useState('')
-
+  const { user } = useAuthContext();
   const { id } = useParams()
   console.log(id);
   const { document, error } = useDocument('parties', id)
+  console.log(document);
 
   const [formError, setFormError] = useState(null)
 
-  // setPartyName(document.partyName)
+  console.log(document);
 
-console.log(document);
- 
+
+  setPartyName(document.partyName)
+  setDetails(document.details)
+  setDueDate(document.dueDate)
+  setCategory(document.category)
 
 
   console.log('user', user);
@@ -53,10 +57,6 @@ console.log(document);
     setFormError(null)
     await updateDoc(ref, newparty
     )
-    // setPartyName('')
-    // setDetails('')
-    // setDueDate('')
-    // setCategory('')
 
   }
 
@@ -100,4 +100,5 @@ console.log(document);
 
     </form>
   )
+
 }

@@ -5,6 +5,8 @@ import { collection, addDoc } from 'firebase/firestore';
 import { useAuthContext} from '../../hooks/useAuthContext';
 import Select from 'react-select'
 
+import './Create.css'
+
 
 const categories = [
     { value: 'birthday', label: 'Birthday-party' },
@@ -47,7 +49,7 @@ export default function Create() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form className='create-form' onSubmit={handleSubmit}>
       <label>
         <span>Add a new book title:</span>
         <input 
