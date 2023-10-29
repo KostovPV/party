@@ -34,10 +34,14 @@ export default function Edit() {
   console.log(document);
 
 
-  // setPartyName(document.partyName)
-  // setDetails(document.details)
-  // setDueDate(document.dueDate)
-  // setCategory(document.category)
+  useEffect(() => {
+    if (document) {
+    setPartyName(document.partyName);
+    setDetails(document.details);
+    setDueDate(document.dueDate);
+    setCategory(document.category);
+    }
+    }, [document]);
 
 
   console.log('user', user);

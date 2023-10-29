@@ -23,23 +23,42 @@ export default function Profile() {
       setPhoto(e.target.files[0])
     }
   }
-  async function updateUserProfile(file, user, setLoading){
-    const fileRef = ref(storage,user.uid + '.png');
+  // async function updateUserProfile(file, user, setLoading){
+  //   const fileRef = ref(storage,user.uid + '.png');
     
-     setLoading(true);
-      const snapshot = await uploadBytes(fileRef, file);
-      const photoURL = await getDownloadURL(fileRef);
-      updateProfile(user, { photoURL })
-        .then((res) => {
-          dispatch({ type: 'UPDATE', payload: res.currentUser })
-        })
-        .catch((err) => {
-          setError(err.message)
-        })
-      setLoading(false);
-      alert("Uploaded file!");
-      navigate('/')
-  }
+  //    setLoading(true);
+  //     const snapshot = await uploadBytes(fileRef, file);
+  //     const photoURL = await getDownloadURL(fileRef);
+  //     updateProfile(user, { photoURL })
+  //       .then((res) => {
+  //         dispatch({ type: 'UPDATE', payload: res.currentUser })
+  //       })
+  //       .catch((err) => {
+  //         setError(err.message)
+  //       })
+  //     setLoading(false);
+  //     alert("Uploaded file!");
+  //     navigate('/')
+  // }
+  async function updateUserProfile(file, user, setLoading) {
+    const fileRef = ref(storage, user.uid + '.png');
+    setLoading(true);
+    const snapshot = await uploadBytes(fileRef, file);
+    const newPhotoURL = await getDownloadURL(fileRef);
+    
+    
+    try {
+    await updateProfile(user, { photoURL: newPhotoURL });
+    dispatch({ type: 'UPDATE', payload: { ...user, photoURL: newPhotoURL } });
+    setPhotoURL(newPhotoURL);
+    setLoading(false);
+    alert("Uploaded file!");
+    navigate('/');
+    } catch (err) {
+    setError(err.message);
+    setLoading(false);
+    }
+    }
 
   function handleClick() {
     updateUserProfile(photo, user, setLoading);

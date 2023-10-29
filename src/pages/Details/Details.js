@@ -31,6 +31,7 @@ export default function Details() {
         <div>{document.dueDate}</div>
         {canEdit && (
           <div><Link to={`/list/${id}/edit`} party={document} >Edit</Link></div>
+          
         )}
       </div>
     </Card>
