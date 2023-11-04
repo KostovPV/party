@@ -25,7 +25,7 @@ function App() {
         <BrowserRouter>
 
           <Navbar />
-          <main id="main-content">
+          <main id="main-content" className='mainBox'>
             {/* {user && <Sidebar />} */}
             <Routes>
               <>

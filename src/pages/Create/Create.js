@@ -6,6 +6,7 @@ import { useAuthContext} from '../../hooks/useAuthContext';
 import Select from 'react-select'
 
 import './Create.css'
+import { useNavigate } from 'react-router-dom';
 
 
 const categories = [
@@ -22,7 +23,7 @@ export default function Create() {
   const [details, setDetails] = useState('')
   const [dueDate, setDueDate] = useState('')
   const [category, setCategory] = useState('')
-
+  const navigate = useNavigate()
   const [formError, setFormError] = useState(null)
   console.log('user' ,user);
   const newparty = {
@@ -45,13 +46,13 @@ export default function Create() {
     setDetails('')
     setDueDate('')
     setCategory('')
-    
+    navigate('/list')
   }
 
   return (
     <form className='create-form' onSubmit={handleSubmit}>
       <label>
-        <span>Add a new book title:</span>
+        <span>Add a new party:</span>
         <input 
           required
           type="text"
@@ -60,7 +61,7 @@ export default function Create() {
         />
       </label>
       <label>
-          <span>Project Details:</span>
+          <span>Party Details:</span>
           <textarea 
             required
             onChange={(e) => setDetails(e.target.value)}
@@ -77,7 +78,7 @@ export default function Create() {
           />
         </label>
         <label>
-          <span>Project category:</span>
+          <span>Party category:</span>
           <Select
             onChange={(option) => setCategory(option)}
             options={categories}

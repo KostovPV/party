@@ -13,7 +13,7 @@ export default function ListItem({ parties }) {
   // }
 
   return (parties && (
-    <div className="list">
+    <div className="listItem">
       <>
         <ul>
           {parties.map(party => (
