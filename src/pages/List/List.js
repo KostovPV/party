@@ -16,6 +16,7 @@ import ListItem from '../../components/ListItem/ListItem';
 
 export default function List() {
     const {documents: parties} = useCollection('parties');
+    console.log('parties', parties);
     // const [parties, setParties]= useState(null);
 
     // useEffect(()=>{

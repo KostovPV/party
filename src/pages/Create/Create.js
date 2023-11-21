@@ -5,8 +5,11 @@ import { collection, addDoc } from 'firebase/firestore';
 import { useAuthContext} from '../../hooks/useAuthContext';
 import Select from 'react-select'
 
-import './Create.css'
+import DatePicker from "react-datepicker";
 
+
+import './Create.css'
+import "react-datepicker/dist/react-datepicker.css";
 
 const categories = [
     { value: 'birthday', label: 'Birthday-party' },
@@ -20,15 +23,16 @@ export default function Create() {
   const [partyName, setPartyName] = useState('');
   const { user} = useAuthContext();
   const [details, setDetails] = useState('')
-  const [dueDate, setDueDate] = useState('')
+  // const [dueDate, setDueDate] = useState('')
   const [category, setCategory] = useState('')
 
   const [formError, setFormError] = useState(null)
+  const [date, setDate] = useState(new Date());
   console.log('user' ,user);
   const newparty = {
     partyName,
     details,
-    dueDate,
+    date,
     category,
     author: user.uid, 
     createdBy: user.email
@@ -43,7 +47,7 @@ export default function Create() {
     )
     setPartyName('')
     setDetails('')
-    setDueDate('')
+    setDate('')
     setCategory('')
     
   }
@@ -69,12 +73,18 @@ export default function Create() {
         </label>
         <label>
           <span>Set due date:</span>
-          <input
+          {/* <input
             required 
             type="date" 
             onChange={(e) => setDueDate(e.target.value)} 
             value={dueDate}
-          />
+          /> */}
+         <div>
+      <DatePicker 
+      selected={date} 
+      onChange={(date) => setDate(date)} 
+      />
+    </div>
         </label>
         <label>
           <span>Project category:</span>

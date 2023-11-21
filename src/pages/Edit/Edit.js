@@ -7,48 +7,100 @@ import Select from 'react-select'
 import { useParams } from 'react-router-dom';
 import { useDocument } from '../../hooks/useDocument';
 
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 import './Edit.css'
+import { useCollection } from '../../hooks/useCollection';
+
 
 const categories = [
   { value: 'birthday', label: 'Birthday-party' },
   { value: 'casual', label: 'Games' },
   { value: 'special', label: 'Single-Program' },
   { value: 'day-care', label: 'Kids-day' },
+
 ]
 
 
+
 export default function Edit() {
-  
+  const { documents: parties } = useCollection('parties');
   const [partyName, setPartyName] = useState('');
   const [details, setDetails] = useState('')
-  const [dueDate, setDueDate] = useState('')
+  const [date, setDate] = useState(null)
   const [category, setCategory] = useState('')
   const { user } = useAuthContext();
   const { id } = useParams()
-  console.log(id);
-  const { document, error } = useDocument('parties', id)
-  console.log(document);
 
+  const { document, error } = useDocument('parties', id)
+
+  const { allDocs } = useCollection('parties')
+  const [excludedDates, setExcludedDates] = useState('')
+  
+  useEffect(() => {
+    if (document) {
+      setPartyName(document.partyName);
+      setDetails(document.details);
+
+
+      const timestamp = document.date
+      console.log('timestamp', timestamp)
+
+      const milliseconds = timestamp.seconds * 1000;
+
+      const dateT = new Date(milliseconds);
+
+      // Extract day, month, and year
+      const day = dateT.getDate();
+      const month = dateT.getMonth() + 1; // Month is zero-indexed, so add 1
+      const year = dateT.getFullYear();
+
+      // Create a formatted date string
+      let formattedDate = `${month}/${day}/${year}`;
+
+      console.log('formattedDate', formattedDate); // Output: 20.11.2023
+
+      setDate(new Date(formattedDate))
+
+      setCategory(document.category);
+    }
+    if (parties) {
+      console.log('parties', parties);
+      const forbidenDates = parties.map(d => d.date)
+      console.log(forbidenDates);
+  
+  
+      let formattedDates = forbidenDates.map((forbidenDate) => {
+        const milliseconds = forbidenDate.seconds * 1000;
+        const dateS = new Date(milliseconds);
+  
+        const day = dateS.getDate();
+        const month = dateS.getMonth() + 1;
+        const year = dateS.getFullYear();
+  
+        return `${month}/${day}/${year}`;
+      });
+      setExcludedDates(formattedDates)
+      console.log(formattedDates);
+    }
+  }, [document, parties]);
+
+  
   const [formError, setFormError] = useState(null)
 
   console.log(document);
 
 
-  useEffect(() => {
-    if (document) {
-    setPartyName(document.partyName);
-    setDetails(document.details);
-    setDueDate(document.dueDate);
-    setCategory(document.category);
-    }
-    }, [document]);
+ 
 
-
+  console.log('category', category);
   console.log('user', user);
+  console.log(' date', date);
   const newparty = {
     partyName,
     details,
-    dueDate,
+    date,
     category,
     author: user.uid,
     createdBy: user.email
@@ -64,7 +116,7 @@ export default function Edit() {
 
   }
 
-  return (
+  return (document && excludedDates &&(
     <form className='edit-form' onSubmit={handleSubmit}>
       <label>
         <span>Add a new book title:</span>
@@ -85,24 +137,33 @@ export default function Edit() {
       </label>
       <label>
         <span>Set due date:</span>
-        <input
+        {/* <input
           required
           type="date"
-          onChange={(e) => setDueDate(e.target.value)}
-          value={dueDate}
+          onChange={(e) => setDate(e.target.value)}
+          value={date}
+        /> */}
+        <DatePicker
+          excludeDates={excludedDates.map(d=>new Date(d))}
+          selected={date}
+          onChange={(date) => setDate(date)}
         />
       </label>
       <label>
         <span>Project category:</span>
         <Select
+          value={category}
           onChange={(option) => setCategory(option)}
           options={categories}
+        // defaultValue={category.value}
+
 
         />
       </label>
       <button>Add</button>
 
     </form>
+  )
   )
 
 }

@@ -20,7 +20,7 @@ export default function ListItem({ parties }) {
             <div key={party.id} className="card">
               <h3>{party.partyName}</h3>
               <p>{party.details} to make.</p>
-              <div>{party.dueDate}</div>
+              {/* <div>{party.dueDate}</div> */}
               <div>{party.category.value}</div>
               <div><Link to={`/list/${party.id}`} >Details</Link></div>
               {/* <SingleListItem party={party} /> */}
