@@ -9,7 +9,7 @@ import DatePicker from "react-datepicker";
 
 
 import './Create.css'
-import "react-datepicker/dist/react-datepicker.css";
+
 
 const categories = [
     { value: 'birthday', label: 'Birthday-party' },
@@ -25,7 +25,7 @@ export default function Create() {
   const [details, setDetails] = useState('')
   // const [dueDate, setDueDate] = useState('')
   const [category, setCategory] = useState('')
-
+  const navigate = useNavigate()
   const [formError, setFormError] = useState(null)
   const [date, setDate] = useState(new Date());
   console.log('user' ,user);
@@ -49,13 +49,13 @@ export default function Create() {
     setDetails('')
     setDate('')
     setCategory('')
-    
+    navigate('/list')
   }
 
   return (
     <form className='create-form' onSubmit={handleSubmit}>
       <label>
-        <span>Add a new book title:</span>
+        <span>Add a new party:</span>
         <input 
           required
           type="text"
@@ -64,7 +64,7 @@ export default function Create() {
         />
       </label>
       <label>
-          <span>Project Details:</span>
+          <span>Party Details:</span>
           <textarea 
             required
             onChange={(e) => setDetails(e.target.value)}
@@ -87,7 +87,7 @@ export default function Create() {
     </div>
         </label>
         <label>
-          <span>Project category:</span>
+          <span>Party category:</span>
           <Select
             onChange={(option) => setCategory(option)}
             options={categories}
